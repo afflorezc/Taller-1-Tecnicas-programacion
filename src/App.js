@@ -1,14 +1,21 @@
 import "./App.css";
 import { useState } from "react";
-import Salary from "./components/Salary/Salary";
 import AmbiTrabajo from "./components/AmbienteTrabajo/AmbiTrabajo";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(0);
   /*const [count2, setCount2] = useState(0);
   const [animSpeed, setAnimSpeed] = useState(1);*/
   const [nomSoftware, setNomSoft] = useState("Default");
-  
+  const [earningsPercentage, setEarningsPercentage] = useState(0);
+
+  const handleEarnings = (e) => {
+    const value = e.target.value / 100;
+    console.log(total);
+    const totalEarning = value * total;
+    setEarningsPercentage(totalEarning);
+  };
 
   function handleClick() {
     setCount(count + 1);
@@ -64,12 +71,13 @@ function App() {
   return (
     <div className="Box-layout">
       <div className="Section-app App-header">
-        <GeneralForm />
+        <GeneralForm total={total} setTotal={setTotal} />
 
         <InputBox
           id="proyecto"
           labelText="Nombre del proyecto:"
           onChange={updateProjectName}
+          type="text"
         />
 
         <p>
@@ -77,6 +85,12 @@ function App() {
           software.
           <br /> Proyecto actual: {count}
         </p>
+        <InputBox
+          id="ganancias"
+          labelText="Porcentaje de ganancias esperadas: (%)"
+          type="number"
+          onChange={handleEarnings}
+        />
         <MyButton text="Iniciar" onClick={handleClick} />
         <MyButton text="Reset" onClick={clickReset} />
       </div>
@@ -91,7 +105,8 @@ function App() {
         </p>
         <h3>Costo de mano de obra</h3>
         <p>Tabla de estimación del costo de mano de obra.</p>
-        <Salary />
+        <h3>Ganacias</h3>
+        <p>{`Las ganancias que se obtendrán serán: ${earningsPercentage}`}</p>
       </div>
     </div>
   );
@@ -107,15 +122,15 @@ function MyButton({ text, onClick }) {
   );
 }
 
-function InputBox({ id, labelText, onChange }) {
+function InputBox({ id, labelText, onChange, type }) {
   return (
     <div>
       <label className="Label"> {labelText} </label>
       <input
         id={id}
         className="Input-box"
-        type="text"
-        onInput={onChange}
+        type={type}
+        onChange={onChange}
       ></input>
     </div>
   );
@@ -125,7 +140,7 @@ function InputText() {
   return <input className="Input-box" type="text" required />;
 }
 
-function GeneralForm() {
+function GeneralForm({ total, setTotal }) {
   function addDevps() {
     const $inputNumDevps = document.getElementById("desarrolladores");
     let num = $inputNumDevps.value;
@@ -218,7 +233,7 @@ function GeneralForm() {
         <br />
         <DevTable />
         <hr></hr>
-        <AmbiTrabajo />
+        <AmbiTrabajo total={total} setTotal={setTotal} />
       </fieldset>
     </form>
   );
