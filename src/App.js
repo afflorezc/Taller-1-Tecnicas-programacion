@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import AmbiTrabajo from "./components/AmbienteTrabajo/AmbiTrabajo";
 import InputsTiempo from "./components/AmbienteTrabajo/inputs"
+import * as componentesBasicos from './ComponentesBasicos';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -10,6 +11,19 @@ function App() {
   const [animSpeed, setAnimSpeed] = useState(1);*/
   const [nomSoftware, setNomSoft] = useState("Default");
   const [earningsPercentage, setEarningsPercentage] = useState(0);
+
+  const [gastosadministrativos, setgastosadministrativos]=useState(0);
+
+
+  function ActualizarTexto(Texto){
+    const parrafo = document.getElementById("valor");
+    parrafo.textContent = Texto;
+  }
+
+  function Actualizargastos(){
+    const atg = document.getElementById("gastos");
+    setgastosadministrativos(atg.value);
+  } 
 
   const handleEarnings = (e) => {
     const value = e.target.value / 100;
@@ -74,6 +88,14 @@ function App() {
       <div className="Section-app App-header">
         <GeneralForm total={total} setTotal={setTotal} />
 
+        <fieldset>
+              <componentesBasicos.InputBox2
+                  id="gastos"
+                  labelText="Ingrese el valor de flujo de los gastos administrativos:"
+                  onchange={Actualizargastos}/>
+            </fieldset>
+
+
         <InputBox
           id="proyecto"
           labelText="Nombre del proyecto:"
@@ -109,6 +131,8 @@ function App() {
         <h3>Ganacias</h3>
         <p>{`Las ganancias que se obtendrán serán: $${earningsPercentage}`}</p>
         <h3>Tiempo de trabajo</h3>
+        
+        <p>los gastos administrativos que se presupuestaron fueron de: {gastosadministrativos}</p>
         <p>
           {/*'Horas trabajadas al dia: '+horasDia}
           {'Dias de trabajo del proyecto: '+diasProyecto*/}
@@ -268,6 +292,8 @@ function GeneralForm({ total, setTotal }) {
         <br />
         <DevTable />
         <hr></hr>
+        <componentesBasicos.DevTable />
+        <hr />
         <AmbiTrabajo total={total} setTotal={setTotal} />
       </fieldset>
     </form>
