@@ -106,7 +106,7 @@ function App() {
         <h3>Costo de mano de obra</h3>
         <p>Tabla de estimación del costo de mano de obra.</p>
         <h3>Ganacias</h3>
-        <p>{`Las ganancias que se obtendrán serán: ${earningsPercentage}`}</p>
+        <p>{`Las ganancias que se obtendrán serán: $${earningsPercentage}`}</p>
       </div>
     </div>
   );
