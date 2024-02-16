@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import AmbiTrabajo from "./components/AmbienteTrabajo/AmbiTrabajo";
+import InputsTiempo from "./components/AmbienteTrabajo/inputs"
 
 function App() {
   const [count, setCount] = useState(0);
@@ -107,6 +108,11 @@ function App() {
         <p>Tabla de estimación del costo de mano de obra.</p>
         <h3>Ganacias</h3>
         <p>{`Las ganancias que se obtendrán serán: $${earningsPercentage}`}</p>
+        <h3>Tiempo de trabajo</h3>
+        <p>
+          {/*'Horas trabajadas al dia: '+horasDia}
+          {'Dias de trabajo del proyecto: '+diasProyecto*/}
+        </p>
       </div>
     </div>
   );
@@ -141,6 +147,25 @@ function InputText() {
 }
 
 function GeneralForm({ total, setTotal }) {
+  const [horasDia, setHorasDia] = useState(0);
+  const [diasProyecto, setDiasProyecto] = useState(0);
+
+  function modificarTiempoProyecto(){
+    const dias = document.getElementById("inputTiempoProyecto");
+    if (dias.value > 0) {
+      setDiasProyecto(dias.value);
+    }
+    console.log(diasProyecto);
+  }
+
+  function modificarHorasDia(){
+    const horas = document.getElementById("inputHorasDia");
+    if (horas.value > 0) {
+      setHorasDia(horas.value);
+    }
+    console.log(horasDia)
+  }
+
   function addDevps() {
     const $inputNumDevps = document.getElementById("desarrolladores");
     let num = $inputNumDevps.value;
@@ -230,6 +255,16 @@ function GeneralForm({ total, setTotal }) {
           />
           <MyButton text="Agregar" onClick={addDevps} />
         </div>
+        <InputsTiempo
+          inputId = "inputHorasDia"
+          inputText = "Ingrese el numero de Horas que se trabajara por dia"
+          botonFunct = {modificarHorasDia}
+        />
+        <InputsTiempo
+          inputId = "inputTiempoProyecto"
+          inputText = "Ingrese el numero de Dias en que se va a trabajar el proyecto"
+          botonFunct = {modificarTiempoProyecto}
+        />
         <br />
         <DevTable />
         <hr></hr>
