@@ -38,3 +38,20 @@ export function  MyButton({text, onClick}) {
       </table>
     );
   }
+
+  export function InputBox2({ id, labelText, onChange }) {
+    return (
+      <div>
+        <label className="Label"> {labelText} </label>
+        <input
+        id={id}
+        className="Input-box"
+        type="number"
+        min="0"
+        max="100"
+        step="1"
+        onInput={onChange}
+        ></input>
+      </div>
+    );
+  };

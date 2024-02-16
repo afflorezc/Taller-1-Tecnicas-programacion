@@ -20,6 +20,12 @@ function App() {
   const [nomSoftware, setNomSoft] = useState(""); /*Nombre del proyecto*/ 
   const [numDesarrolladores, setnumDes] = useState(0); /*Total personal del equipo*/
   const [listDeveloper, setListDev] = useState([]); /* Lista de profesionales */ 
+  const [riesgosPorc, setRiesgosporc]=useState(0);  
+  
+  function actPorcen(){
+    const actuporcent = document.getElementById("porcent");
+    setRiesgosporc(actuporcent.value);
+  }
 
   /*
   Función de actualización del equipo de desarrollo. Cuando el total de profesionales
@@ -82,6 +88,15 @@ function App() {
           <div className = "Section-app App-header">
 
             <GeneralForm addDevpsFunction = {addDevps} inputProjectFn = {updateProjectName}/>
+            
+            <form>
+              <fieldset>
+                <componentesBasicos.InputBox2
+                  id="porcent"
+                  labelText="Porcentaje para riesgos imprevistos"
+                  onChange={actPorcen}/>
+              </fieldset>
+            </form>
 
           </div>
              
@@ -97,6 +112,8 @@ function App() {
               Para la elaboración del proyecto se estima que se requieran un total de {numDesarrolladores}, 
               profesionales de desarrollo y otras áreas detallados en la siguiente tabla:
             </p>
+
+            <p>Se asigna un porcentaje de riesgos igual a: {riesgosPorc}% </p>
           </div>
 
         </div>
@@ -136,9 +153,9 @@ function GeneralForm({addDevpsFunction, inputProjectFn}){
         </div>
         <br />
         <componentesBasicos.DevTable />
-        <hr> </hr>
         <AmbiTrabajo />
       </fieldset>
+
     </form>
   );
 }
